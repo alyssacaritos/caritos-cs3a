@@ -69,4 +69,9 @@ if st.button("Receive"):
 
 st.sidebar.write(f"Your Public Key: {generate_keys(q, g, private_key)}")
 
+def main():
+    secure_chat(private_key, received_public_key, message)
+
+if __name__ == "__main__":
+    main()
 

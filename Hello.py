@@ -18,7 +18,7 @@ file_functions = {
     "XOR_Cipher.py": (XOR_Cipher.main),
     "Caesar_Cipher.py": (Caesar_Cipher.main),
     "Hashing_function.py": (Hashing_function.main, "Hashing Function"),
-    "SecureChatwithDiffie-Hellman.py": (SecureChatwithDiffieHellman, "Secure Chat with Diffie-Hellman")
+    "SecureChatwithDiffie-Hellman.py": (SecureChatwithDiffieHellman.main, "Secure Chat with Diffie-Hellman")
 }
 
 # Debugging prints to check the structure of file_functions dictionary
