@@ -1,52 +1,34 @@
-# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
+import importlib.util
+import os
 from streamlit.logger import get_logger
+from pages import BlockCipher_XOR 
+from pages import Hashing_function # Importing the Block Cipher file
 
 LOGGER = get_logger(__name__)
 
+# Function to execute content of .py files
+def execute_py_file(file_path):
+    spec = importlib.util.spec_from_file_location("module", file_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
 
-def run():
-    st.set_page_config(
-        page_title="Hello",
-        page_icon="👋",
-    )
+# Define the list of available .py files
+file_paths = [
+    "pages/BlockCipher_XOR.py",
+    "pages/XOR_Cipher.py",
+    "pages/Caesar_Cipher.py",
+    "pages/Hashing_function.py",
+    "pages/SecureChatwithDiffie-Hellman.py"
+]
 
-    st.write("# Welcome to Streamlit! 👋👋👋")
-    st.write("by ALYSSA P. CARITOS")
-    
-    st.sidebar.success("Select a demo above.")
-
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
-
-
-if __name__ == "__main__":
-    run()
+# Display buttons for each .py file
+for file_path in file_paths:
+    file_name = os.path.basename(file_path)  # Extract the file name from the file path
+    if st.button(file_name):
+        if file_path == "pages/BlockCipher_XOR.py":
+            BlockCipher_XOR.block_cipher_xor()
+        elif file_path == "pages/Hashing_function.py":
+            Hashing_function.main()  # Call the Block Cipher function directly
+        else:
+            execute_py_file(file_path)

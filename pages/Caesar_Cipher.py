@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="Caesar Cipher", page_icon=":lock:", layout="wide")
+
 
 # Function to encrypt or decrypt text using Caesar Cipher
 def encrypt_decrypt(text, shift_keys, if_encrypt):
@@ -42,36 +42,49 @@ def encrypt_decrypt(text, shift_keys, if_encrypt):
     return result, interchange_values
 
 # Streamlit UI
-st.title(":lock: Caesar Cipher")
+st.sidebar.title("Choose Input Option 📥")
+input_option = st.sidebar.radio("", ("📝 Text", "📂 File"))
+
+st.title(":lock: Caesar Cipher 🔑")
 
 with st.form("caesar_cipher_form"):
     st.subheader("Encrypt or Decrypt Text")
     
-    text = st.text_area("Enter text:")
-    shift_keys = st.text_area("Enter shift keys separated by spaces:")
-    encrypt_option = st.radio("Choose an option:", ("Encrypt", "Decrypt"))
+    if input_option == "📝 Text":
+        text = st.text_area("Enter text:")
+    else:
+        uploaded_file = st.file_uploader("Upload File 📂")
+        if uploaded_file is not None:
+            text = uploaded_file.read().decode("utf-8")  # Convert bytes to string
     
-    submitted = st.form_submit_button("Submit")
+    shift_keys = st.text_area("Enter shift keys separated by spaces:")
+    encrypt_option = st.radio("Choose an option:", ("Encrypt 🛡️", "Decrypt 🔓"))
+    
+    submitted = st.form_submit_button("Submit ✅")
 
 if submitted:
-    if not text.strip() or not shift_keys:
+    if not text.strip() or not shift_keys.strip():
         st.error("Please enter both text and shift keys.")
     else:
         try:
             shift_keys = [int(key) for key in shift_keys.split()]
-            if encrypt_option == "Encrypt":
+            if encrypt_option.startswith("Encrypt"):
                 decrypted_text, interchange_values = encrypt_decrypt(text, shift_keys, False)
                 output_df = pd.DataFrame(interchange_values, columns=["Original Character", "Shift Key", "Encrypted Character"])
-                st.subheader("Encrypted Text:")
+                output_df['Original Character'] = output_df['Original Character'].str.extract('([A-Za-z])')
+                
+                # Displaying result in a box with emoji
+                st.info(":closed_lock_with_key: **Encrypted Text and Decryption**")
                 st.write(decrypted_text)
-                st.subheader("Decryption:")
                 st.dataframe(output_df)
             else:
                 encrypted_text, interchange_values = encrypt_decrypt(text, shift_keys, True)
                 output_df = pd.DataFrame(interchange_values, columns=["Original Character", "Shift Key", "Decrypted Character"])
-                st.subheader("Decrypted Text:")
+                output_df['Original Character'] = output_df['Original Character'].str.extract('([A-Za-z])')
+                
+                # Displaying result in a box with emoji
+                st.info(":unlock: **Decrypted Text and Decryption**")
                 st.write(encrypted_text)
-                st.subheader("Decryption:")
                 st.dataframe(output_df)
         except ValueError as e:
             st.error("Error: " + str(e))
