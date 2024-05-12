@@ -18,7 +18,7 @@ file_functions = {
     "XOR_Cipher.py": (XOR_Cipher.main),
     "Caesar_Cipher.py": (Caesar_Cipher.main),
     "Hashing_function.py": (Hashing_function.main),
-    "SecureChatwithDiffieHellman.py": (SecureChatwithDiffieHellman.main)
+    "SecureChatwithDiffieHellman.py": (SecureChatwithDiffieHellman)
 }
 
 # Display buttons for each .py file in the sidebar
