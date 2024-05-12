@@ -28,7 +28,12 @@ print("file_functions:", file_functions)
 page_names = [name for function, name in file_functions.values() if function is not None]
 
 # Display buttons for each .py file in the main content area
-st.title("🚀 Streamlit Page Navigator")
+st.title("🚀 Applied Cryptography")
+st.write("""
+        The Applied Cryptography Application project aims to develop a simple application that implements various cryptographic techniques to secure communication, data, and information exchange. Cryptography is the science of encoding and decoding messages to protect their confidentiality, integrity, and authenticity. 
+        
+        The application will provide a user-friendly interface that allows users to encrypt, decrypt and hash messages/file using different cryptographic algorithms.
+        """)
 
 selected_page = st.selectbox("Select a Page", page_names)
 
