@@ -29,6 +29,7 @@ def hash_data(data, hash_mode):
 
 def main():
     # Main content area
+    st.title("🔒 HASHING FUNCTION 🛠️")
     st.markdown("---")
     st.sidebar.title("📤 Choose Input Option")
     input_option = st.sidebar.radio("", ("📝 Text", "📂 File"))

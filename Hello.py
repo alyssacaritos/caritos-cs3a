@@ -17,7 +17,7 @@ file_functions = {
     "BlockCipher_XOR.py": (BlockCipher_XOR.block_cipher_xor, "Block Cipher XOR"),
     "XOR_Cipher.py": (XOR_Cipher.main),
     "Caesar_Cipher.py": (Caesar_Cipher.main),
-    "Hashing_function.py": (Hashing_function.main, "🔒 HASHING FUNCTION 🛠️"),
+    "Hashing_function.py": (Hashing_function.main),
     "SecureChatwithDiffieHellman.py": (SecureChatwithDiffieHellman.main)
 }
 

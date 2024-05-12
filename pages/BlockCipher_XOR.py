@@ -39,7 +39,6 @@ def xor_decrypt(ciphertext, key, block_size):
     return unpad(decrypted_data)
 
 def block_cipher_xor():
-    st.title("🔐 Block Cipher 🔐")
     st.sidebar.title("📥 Choose Input Option")
     input_option = st.sidebar.radio("", ("📝 Text", "📂 File"))
     
