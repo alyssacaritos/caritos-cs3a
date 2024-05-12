@@ -14,11 +14,11 @@ def execute_py_file(file_path):
 
 # Define the list of available .py files with their respective names and functions
 file_functions = {
-    "BlockCipher_XOR.py": (BlockCipher_XOR.block_cipher_xor),
-    "XOR_Cipher.py": (XOR_Cipher.main, "⊻"),
-    "Caesar_Cipher.py": (Caesar_Cipher.main),
-    "Hashing_function.py": (Hashing_function.main, "🔒 HASHING FUNCTION 🛠️"),
-    "SecureChatwithDiffie-Hellman.py": (SecureChatwithDiffieHellman.main)
+    "BlockCipher_XOR.py": (BlockCipher_XOR.block_cipher_xor, "Block Cipher XOR"),
+    "XOR_Cipher.py": (XOR_Cipher.main, "XOR Cipher"),
+    "Caesar_Cipher.py": (Caesar_Cipher.main, "Caesar Cipher"),
+    "Hashing_function.py": (Hashing_function.main, "Hashing Function"),
+    "SecureChatwithDiffie-Hellman.py": (SecureChatwithDiffieHellman.main, "Secure Chat with Diffie-Hellman")
 }
 
 # Debugging prints to check the structure of file_functions dictionary
