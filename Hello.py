@@ -2,7 +2,7 @@ import streamlit as st
 import importlib.util
 import os
 from streamlit.logger import get_logger
-from pages import BlockCipher_XOR, Hashing_function, XOR_Cipher, Caesar_Cipher  # Importing the Block Cipher and Hashing function files
+from pages import BlockCipher_XOR, Hashing_function, XOR_Cipher, Caesar_Cipher, SecureChatwithDiffieHellman  # Importing the Block Cipher and Hashing function files
 
 LOGGER = get_logger(__name__)
 
@@ -15,10 +15,10 @@ def execute_py_file(file_path):
 # Define the list of available .py files with their respective names and functions
 file_functions = {
     "BlockCipher_XOR.py": (BlockCipher_XOR.block_cipher_xor, "Block Cipher XOR"),
-    "XOR_Cipher.py": (XOR_Cipher.main, "XOR Cipher"),
-    "Caesar_Cipher.py": (Caesar_Cipher.main, "Caesar Cipher"),
+    "XOR_Cipher.py": (XOR_Cipher.main),
+    "Caesar_Cipher.py": (Caesar_Cipher.main),
     "Hashing_function.py": (Hashing_function.main, "Hashing Function"),
-    "SecureChatwithDiffie-Hellman.py": (None, "Secure Chat with Diffie-Hellman")
+    "SecureChatwithDiffie-Hellman.py": (SecureChatwithDiffieHellman, "Secure Chat with Diffie-Hellman")
 }
 
 # Debugging prints to check the structure of file_functions dictionary
