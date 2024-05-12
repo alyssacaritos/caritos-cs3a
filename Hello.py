@@ -1,8 +1,7 @@
 import streamlit as st
 import importlib.util
-import os
 from streamlit.logger import get_logger
-from pages import BlockCipher_XOR, Hashing_function, XOR_Cipher, Caesar_Cipher, SecureChatwithDiffieHellman  # Importing the Block Cipher and Hashing function files
+from pages import BlockCipher_XOR, Hashing_function, XOR_Cipher, Caesar_Cipher, SecureChatwithDiffieHellman  
 
 LOGGER = get_logger(__name__)
 
@@ -27,21 +26,25 @@ print("file_functions:", file_functions)
 # Extract the names of the pages
 page_names = [name for function, name in file_functions.values() if function is not None]
 
-# Display buttons for each .py file in the main content area
-st.title("🚀 Applied Cryptography")
-st.write("""
+# Display the introduction text and a checkbox for viewing text only
+st.title(" ♨️ Applied Cryptography ")
+show_text_only = st.checkbox("View Text Only")
+
+if show_text_only:
+    st.write("""
         The Applied Cryptography Application project aims to develop a simple application that implements various cryptographic techniques to secure communication, data, and information exchange. Cryptography is the science of encoding and decoding messages to protect their confidentiality, integrity, and authenticity. 
         
-        The application will provide a user-friendly interface that allows users to encrypt, decrypt and hash messages/file using different cryptographic algorithms.
+        The application will provide a user-friendly interface that allows users to encrypt, decrypt, and hash messages/files using different cryptographic algorithms 🤖.
         """)
+else:
+    # Display buttons for each .py file in the main content area
+    selected_page = st.selectbox("Select a Page", page_names)
 
-selected_page = st.selectbox("Select a Page", page_names)
-
-# Show content of the selected page
-if selected_page:
-    function_to_execute = [function for function, name in file_functions.values() if name == selected_page][0]
-    if function_to_execute:
-        st.markdown(f"## {selected_page}")
-        function_to_execute()
-    else:
-        st.write("This page does not have an executable function.")
+    # Show content of the selected page
+    if selected_page:
+        function_to_execute = [function for function, name in file_functions.values() if name == selected_page][0]
+        if function_to_execute:
+            st.markdown(f"## {selected_page}")
+            function_to_execute()
+        else:
+            st.write("This page does not have an executable function.")
