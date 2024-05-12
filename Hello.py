@@ -27,15 +27,14 @@ print("file_functions:", file_functions)
 # Extract the names of the pages
 page_names = [name for function, name in file_functions.values()]
 
-# Display buttons for each .py file in the sidebar
-st.sidebar.title("📚 Pages")
-selected_page = st.sidebar.radio("", page_names, index=0)
-
-# Show content of the selected page
+# Display buttons for each .py file in the main content area
 st.title("🚀 Streamlit Page Navigator")
 
-if selected_page in page_names:
-    function_to_execute = [function for function, name in file_functions.values() if name == selected_page][0]
+selected_page = st.selectbox("Select a Page", page_names)
+
+# Show content of the selected page
+if selected_page in file_functions.values():
+    function_to_execute = [function for function, name in file_functions.items() if name == selected_page][0]
     if function_to_execute:
         st.markdown(f"## {selected_page}")
         function_to_execute()
