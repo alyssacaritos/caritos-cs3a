@@ -48,43 +48,47 @@ def display_results(ciphertext, decrypted, xor_encrypt_operations, xor_decrypt_o
             st.write("--------------------")
 
 # Streamlit app UI
-st.title("XOR Cipher 🛡️")
-st.markdown("Encrypt and Decrypt using XOR Cipher with a Key")
+def main():
+    st.title("XOR Cipher 🛡️")
+    st.markdown("Encrypt and Decrypt using XOR Cipher with a Key")
 
 # Add a button in the sidebar to choose input method
-st.sidebar.title("📥 Choose Input Option")
-input_method = st.sidebar.radio("", ("📝 Text", "📂 File"))
+    st.sidebar.title("📥 Choose Input Option")
+    input_method = st.sidebar.radio("", ("📝 Text", "📂 File"))
 
-with st.form("xor_cipher_form"):
-    st.subheader("Encrypt and Decrypt")
-    if input_method == "📂 File":
-        uploaded_file = st.file_uploader("Upload a text file 📁", type=["txt"])
-        plaintext = ""
-    else:
-        uploaded_file = None
-        plaintext = st.text_area("Enter Plain Text:", max_chars=200)
-    key = st.text_input("Enter Key 🔑:")
-    submitted = st.form_submit_button("Encrypt & Decrypt")
+    with st.form("xor_cipher_form"):
+        st.subheader("Encrypt and Decrypt")
+        if input_method == "📂 File":
+            uploaded_file = st.file_uploader("Upload a text file 📁", type=["txt"])
+            plaintext = ""
+        else:
+            uploaded_file = None
+            plaintext = st.text_area("Enter Plain Text:", max_chars=200)
+        key = st.text_input("Enter Key 🔑:")
+        submitted = st.form_submit_button("Encrypt & Decrypt")
 
 # Process submitted form
-if submitted:
-    if not key:
-        st.error("Please provide a key.")
-    else:
-        if uploaded_file is not None:
-            plaintext = uploaded_file.read().decode()
-        
-        if not plaintext:
-            st.error("Please provide a text file or enter plaintext.")
+    if submitted:
+        if not key:
+            st.error("Please provide a key.")
         else:
-            plaintext_bytes = plaintext.encode()
-            key_bytes = key.encode()
-            
-            if len(plaintext_bytes) < len(key_bytes):
-                st.error("Plaintext length should be equal or greater than the length of the key.")
-            elif plaintext_bytes == key_bytes:
-                st.error("Plaintext should not be equal to the key.")
+            if uploaded_file is not None:
+                plaintext = uploaded_file.read().decode()
+        
+            if not plaintext:
+                st.error("Please provide a text file or enter plaintext.")
             else:
-                ciphertext, xor_encrypt_operations = xor_encrypt(plaintext_bytes, key_bytes)
-                decrypted, xor_decrypt_operations = xor_decrypt(ciphertext, key_bytes)
-                display_results(ciphertext, decrypted, xor_encrypt_operations, xor_decrypt_operations)
+                plaintext_bytes = plaintext.encode()
+                key_bytes = key.encode()
+            
+                if len(plaintext_bytes) < len(key_bytes):
+                    st.error("Plaintext length should be equal or greater than the length of the key.")
+                elif plaintext_bytes == key_bytes:
+                    st.error("Plaintext should not be equal to the key.")
+                else:
+                    ciphertext, xor_encrypt_operations = xor_encrypt(plaintext_bytes, key_bytes)
+                    decrypted, xor_decrypt_operations = xor_decrypt(ciphertext, key_bytes)
+                    display_results(ciphertext, decrypted, xor_encrypt_operations, xor_decrypt_operations)
+
+if __name__ == "__main__":
+    main()
