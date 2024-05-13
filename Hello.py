@@ -69,3 +69,7 @@ else:
             function_to_execute()
         else:
             st.write("This page does not have an executable function.")
+
+
+if __name__ == "__main__":
+    run()
