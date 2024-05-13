@@ -6,7 +6,7 @@ import base64
 
 # Streamlit app
 def main():
-    st.title("🔒RSA Encryption and Decryption🔓")
+    st.title("🔒RSA Encryption and Decryption")
 
     # Initialize key variables
     public_key = None
