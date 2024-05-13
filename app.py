@@ -1,6 +1,4 @@
 import streamlit as st
-import sys
-sys.path.append('/CARITOS-CS3A/app.py') 
 import importlib.util
 from streamlit.logger import get_logger
 from pages import BlockCipher_XOR, Hashing_function, XOR_Cipher, Caesar_Cipher, SecureChatwithDiffieHellman  
