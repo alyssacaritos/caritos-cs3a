@@ -5,11 +5,6 @@ from pages import BlockCipher_XOR, Hashing_function, XOR_Cipher, Caesar_Cipher, 
 
 LOGGER = get_logger(__name__)
 
-def run():
-    st.set_page_config(
-        page_title="APPLIED CRYPTOGRAPHY",
-        page_icon="♨️",
-    )
 
 # Function to execute content of .py files
 def execute_py_file(file_path):
@@ -69,7 +64,3 @@ else:
             function_to_execute()
         else:
             st.write("This page does not have an executable function.")
-
-
-if __name__ == "__main__":
-    run()
