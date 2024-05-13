@@ -32,12 +32,10 @@ show_text_only = st.checkbox("View Text Only")
 
 if show_text_only:
     st.write("""
-        
         **Author**: 
-            
-            Caritos, Alyssa P.
-            Maraño, Mary France
-            Aguilar, Troy
+        [![color=#FF5733]**Caritos, Alyssa P.**](url)
+        [![color=#58D68D]**Maraño, Mary France**](url)
+        [![color=#3498DB]**Aguilar, Troy**](url)
 
         The Applied Cryptography Application project aims to develop a simple application that implements various cryptographic techniques to secure communication, data, and information exchange. Cryptography is the science of encoding and decoding messages to protect their confidentiality, integrity, and authenticity. 
 
