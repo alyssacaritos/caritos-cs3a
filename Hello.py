@@ -14,9 +14,9 @@ def execute_py_file(file_path):
 # Define the list of available .py files with their respective names, functions, and emojis
 file_functions = {
     "BlockCipher_XOR.py": (BlockCipher_XOR.block_cipher_xor, "Block Cipher XOR", "🔒"),
-    "XOR_Cipher.py": (XOR_Cipher.main, "🔑"),
-    "Caesar_Cipher.py": (Caesar_Cipher.main, "🎭"),
-    "Hashing_function.py": (Hashing_function.main, "🔒", "HASHING FUNCTION", "🛠️"),
+    "XOR_Cipher.py": (XOR_Cipher.main, "XOR Cipher", "🔑"),
+    "Caesar_Cipher.py": (Caesar_Cipher.main, "Caesar Cipher", "🎭"),
+    "Hashing_function.py": (Hashing_function.main, "Hashing Function", "🔗"),
     "SecureChatwithDiffie-Hellman.py": (SecureChatwithDiffieHellman.main, "Secure Chat with Diffie-Hellman", "🔑🔒")
 }
 
@@ -33,13 +33,13 @@ show_text_only = st.checkbox("View Text Only")
 if show_text_only:
     st.write("""
         
-        **📝 Author**: 
+        **📝Author**: 
             
             Caritos, Alyssa P.
             Maraño, Mary France
             Aguilar, Troy
 
-        This Applied Cryptography Application project aims to develop a simple application that implements various cryptographic techniques to secure communication, data, and information exchange. Cryptography is the science of encoding and decoding messages to protect their confidentiality, integrity, and authenticity. 
+        The Applied Cryptography Application project aims to develop a simple application that implements various cryptographic techniques to secure communication, data, and information exchange. Cryptography is the science of encoding and decoding messages to protect their confidentiality, integrity, and authenticity. 
 
         This application covers the following cryptographic techniques:
         
