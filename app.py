@@ -19,7 +19,7 @@ file_functions = {
     "XOR_Cipher.py": (XOR_Cipher.main, "XOR Cipher", "🔑"),
     "Caesar_Cipher.py": (Caesar_Cipher.main, "Caesar Cipher", "🎭"),
     "Hashing_function.py": (Hashing_function.main, "Hashing Function", "🔗"),
-    "SecureChatwithDiffie-Hellman.py": (SecureChatwithDiffieHellman.main, "Secure Chat with Diffie-Hellman", "🔑🔒"),
+    "SecureChatwithDiffieHellman.py": (SecureChatwithDiffieHellman.main, "Secure Chat with Diffie-Hellman", "🔑🔒"),
     "RSACipher.py": (RSACipher.main, "RSA Cipher Exhange", "🔑")
 }
 
