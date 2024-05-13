@@ -46,9 +46,9 @@ if show_text_only:
 
         This application covers the following cryptographic techniques:
         
-        - **Symmetric Encryption and Decryption**: In symmetric encryption, the same key is used for both encryption and decryption. It's fast and efficient but requires secure key distribution. Examples include the Block Cipher XOR and XOR Cipher.
+        - **Symmetric Encryption and Decryption**: In symmetric encryption, the same key is used for both encryption and decryption. It's fast and efficient but requires secure key distribution. Examples include the Block Cipher XOR, XOR Cipher, and Caesar Cipher.
 
-        - **Asymmetric Encryption and Decryption**: Asymmetric encryption uses a pair of keys - public and private keys. The public key is used for encryption, while the private key is used for decryption. It provides secure key exchange but is slower compared to symmetric encryption. An example is the Secure Chat with Diffie-Hellman.
+        - **Asymmetric Encryption and Decryption**: Asymmetric encryption uses a pair of keys - public and private keys. The public key is used for encryption, while the private key is used for decryption. It provides secure key exchange but is slower compared to symmetric encryption. An example is the Secure Chat with Diffie-Hellman and RSA Encryption and Decryption.
 
         - **Hashing Function**: Hashing functions take an input (or 'message') and return a fixed-size string of bytes. The output is typically a hash value. Hash functions are commonly used in various aspects of cryptography, including password storage and digital signatures.
         
