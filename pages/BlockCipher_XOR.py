@@ -137,8 +137,14 @@ def block_cipher_xor():
             st.markdown("### 🔐 Encrypted Data", unsafe_allow_html=True)
             st.code(encrypted_data.hex())
     
+            
             st.markdown("### 🔓 Decrypted Data", unsafe_allow_html=True)
-            st.code(decrypted_data.decode())
+            try:
+                decrypted_text = decrypted_data.decode('utf-8')
+                st.code(decrypted_text)
+            except UnicodeDecodeError:
+                st.code(decrypted_data.hex())
+
             
             if show_steps_encrypt or show_steps_decrypt:
                 col1, col2 = st.columns(2)
