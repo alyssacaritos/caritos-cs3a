@@ -1,104 +1,99 @@
 import streamlit as st
-import math
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
+import os
+import base64
 
-def is_prime(num):
-    if num <= 1:
-        return False
-    if num <= 3:
-        return True
-    if num % 2 == 0 or num % 3 == 0:
-        return False
-    i = 5
-    while i * i <= num:
-        if num % i == 0 or num % (i + 2) == 0:
-            return False
-        i += 6
-    return True
+# Streamlit app
+def main():
+    st.title("🔒 RSA Encryption and Decryption 🔓")
 
-def gcd(a, b):
-    while b != 0:
-        a, b = b, a % b
-    return a
-
-def mod_inverse(a, m):
-    m0, x0, x1 = m, 0, 1
-    while a > 1:
-        q = a // m
-        m, a = a % m, m
-        x0, x1 = x1 - q * x0, x0
-    return x1 + m0 if x1 < 0 else x1
-
-def generate_keys(p, q):
-    if not is_prime(p) or not is_prime(q):
-        st.error("Both numbers must be prime.")
-        return None, None, None, None, None, None
-
-    n = p * q
-    phi = (p - 1) * (q - 1)
-
-    e = 2
-    while gcd(e, phi) != 1:
-        e += 1
-
-    d = mod_inverse(e, phi)
-
-    return (e, n), (d, n), phi, n, p, q
-
-def encrypt(message, public_key):
-    e, n = public_key
-    encrypted_text = [pow(ord(char), e, n) for char in message]
-    return encrypted_text
-
-def decrypt(encrypted_text, private_key):
-    d, n = private_key
-    decrypted_text = [chr(pow(char, d, n)) for char in encrypted_text]
-    return ''.join(decrypted_text)
-
-if __name__ == '__main__':
-    st.title("RSA Chat")
-
+    # Initialize key variables
     public_key = None
     private_key = None
 
-    st.sidebar.header("RSA Key Generation")
-    p = st.sidebar.number_input("Enter the first prime number (p):", min_value=2, step=1)
-    q = st.sidebar.number_input("Enter the second prime number (q):", min_value=2, step=1)
+    # Ask the user for the plaintext message
+    plaintext = st.text_input("🔤 Enter the message to encrypt", "")
 
-    if st.sidebar.button("Generate Keys"):
-        public_key, private_key, phi, n, p, q = generate_keys(p, q)
+    # Key size selection
+    key_size = st.selectbox("🔑 Select key size", [1024, 2048, 4096])
 
-        if public_key is not None and private_key is not None:  # Check if keys were successfully generated
-            st.sidebar.success("Keys generated successfully.")
-            st.sidebar.write(f"p: {p}")
-            st.sidebar.write(f"q: {q}")
-            st.sidebar.write(f"n: {n}")
-            st.sidebar.write(f"φ(n): {phi}")
-            st.sidebar.write(f"e: {public_key[0]}")
-            st.sidebar.write(f"d: {private_key[0]}")
-        else:
-            st.sidebar.error("Failed to generate keys. Please ensure both numbers are prime.")
+    # Submit button for key generation and encryption
+    if st.button("🔒 Generate Key Pair & Encrypt"):
+        # Generate RSA key pair
+        key = RSA.generate(key_size)
 
-    if public_key is not None and private_key is not None:  # Check if keys exist before using them
-        message = st.text_input("Enter your message:")
-        if st.button("Encrypt"):
-            if message and public_key is not None:  # Ensure public key exists before encryption
-                encrypted_message = encrypt(message, public_key)
-                encrypted_str = ' '.join(str(p) for p in encrypted_message)
-                st.write("Encrypted message:")
-                st.write(encrypted_str)
-            elif not message:
-                st.write("Please enter a message.")
+        # Save keys to files
+        public_key_filename = "public_key.pem"
+        private_key_filename = "private_key.pem"
+        with open(public_key_filename, "wb") as public_key_file:
+            public_key_file.write(key.publickey().exportKey())
+        with open(private_key_filename, "wb") as private_key_file:
+            private_key_file.write(key.exportKey())
+
+        # Encrypt the message using RSA public key
+        if plaintext:
+            cipher_rsa = PKCS1_OAEP.new(key.publickey())
+            ciphertext = cipher_rsa.encrypt(plaintext.encode())
+
+            # Save encrypted message to a file
+            with open("encrypted_message.txt", "wb") as encrypted_message_file:
+                encrypted_message_file.write(ciphertext)
+
+            st.success("📝 Encrypted message has been saved to 'encrypted_message.txt'")
+
+            # Display encrypted message
+            st.write("🔒 Encrypted message:", ciphertext.hex())
+
+            # Set keys for decryption
+            public_key = key.publickey()
+            private_key = key
+
+            # Automatically download encrypted message
+            st.markdown(get_binary_file_downloader_html("encrypted_message.txt", '📥 Encrypted Message', 'encrypted_message.txt'), unsafe_allow_html=True)
+
+            # Automatically download public key
+            st.markdown(get_binary_file_downloader_html(public_key_filename, '🔑 Public Key', 'public_key.pem'), unsafe_allow_html=True)
+
+            # Automatically download private key
+            st.markdown(get_binary_file_downloader_html(private_key_filename, '🔑 Private Key', 'private_key.pem'), unsafe_allow_html=True)
+
+    # Decryption section
+    st.markdown("---")
+    st.title("🔓 Decryption")
+
+    # Upload encrypted message file
+    st.write("📤 Upload encrypted message file:")
+    encrypted_message_file = st.file_uploader("📁 Choose a file", type=["txt"])
+    if encrypted_message_file is not None:
+        encrypted_message_content = encrypted_message_file.getvalue()
+
+        # Load private key if not generated
+        if private_key is None:
+            if os.path.isfile("private_key.pem"):
+                with open("private_key.pem", "rb") as private_key_file:
+                    private_key = RSA.importKey(private_key_file.read())
             else:
-                st.error("Public key not generated.")
+                st.error("❌ Private key not found. Please upload the private key file.")
+                return
 
-        received_message = st.text_input("Paste the received message here:")
-        if st.button("Decrypt"):
-            if received_message and private_key is not None:  # Ensure private key exists before decryption
-                encrypted_message = [int(num) for num in received_message.split() if num.isdigit()]
-                decrypted_message = decrypt(encrypted_message, private_key)
-                st.write("Decrypted message:")
-                st.write(decrypted_message)
-            elif not received_message:
-                st.write("Please paste the received message.")
-            else:
-                st.error("Private key not generated.")
+        # Decrypt the message using RSA private key
+        if private_key:
+            try:
+                decipher_rsa = PKCS1_OAEP.new(private_key)
+                decrypted_message = decipher_rsa.decrypt(encrypted_message_content)
+                st.success("🔓 Decryption successful!")
+                st.write("🔤 Decrypted message:", decrypted_message.decode())
+            except Exception as e:
+                st.error("❌ Error during decryption:")
+                st.error(e)
+
+def get_binary_file_downloader_html(bin_file, file_label='File', file_name='file.txt'):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    b64 = base64.b64encode(data).decode()
+    href = f'<a href="data:file/txt;base64,{b64}" download="{file_name}">Download {file_label}</a>'
+    return href
+
+if __name__ == "__main__":
+    main()

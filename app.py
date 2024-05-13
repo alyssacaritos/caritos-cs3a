@@ -39,7 +39,7 @@ if show_text_only:
             
             Caritos, Alyssa P.
             Maraño, Mary France
-            Aguilar, Troy
+            Aguilar, Jhan Lenard Troa
 
         The Applied Cryptography Application project aims to develop a simple application that implements various cryptographic techniques to secure communication, data, and information exchange. Cryptography is the science of encoding and decoding messages to protect their confidentiality, integrity, and authenticity. 
 

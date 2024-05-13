@@ -40,8 +40,7 @@ def xor_decrypt(ciphertext, key, block_size):
 
 def block_cipher_xor():
     st.sidebar.title("📥 Choose Input Option")
-    input_option = st.sidebar.radio("", ("📝 Text", "📂 File"))
-    
+    input_option = st.sidebar.radio("Choose Input Option", ("📝 Text", "📂 File"), key="input_option")
     if input_option == "📝 Text":
         plaintext_input = st.text_area("📜 Input Text:")
         block_size_input = st.selectbox("🔢 Block Size:", (8, 16, 32, 64, 128))

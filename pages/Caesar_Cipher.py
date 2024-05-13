@@ -44,7 +44,8 @@ def encrypt_decrypt(text, shift_keys, if_encrypt):
 # Streamlit UI
 def main():
     st.sidebar.title("Choose Input Option 📥")
-    input_option = st.sidebar.radio("", ("📝 Text", "📂 File"))
+    input_option = st.sidebar.radio("Choose Input Option", ("📝 Text", "📂 File"), key="input_option", label_visibility="collapsed")
+
 
     st.title(":lock: Caesar Cipher 🔑")
 
