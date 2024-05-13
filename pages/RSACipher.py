@@ -85,8 +85,7 @@ def main():
                 st.success("🔓 Decryption successful!")
                 st.write("🔤 Decrypted message:", decrypted_message.decode())
             except Exception as e:
-                st.error("❌ Error during decryption:")
-                st.error("❌ You should Generate the key first:")
+                st.error("❌ Error during decryption, You should Generate the key first:")
                 st.error(e)
 
 def get_binary_file_downloader_html(bin_file, file_label='File', file_name='file.txt'):
