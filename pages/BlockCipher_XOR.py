@@ -95,6 +95,8 @@ def xor_decrypt(ciphertext, key, block_size):
     for i in range(0, len(ciphertext), block_size):
         block = ciphertext[i:i+block_size]
         decrypted_block = xor_decrypt_block(block, key)
+        # Since we're padding the plaintext, we need to consider the padding length
+        # when appending blocks to the decrypted data
         decrypted_data += decrypted_block
     return unpad(decrypted_data)
 
