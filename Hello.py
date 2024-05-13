@@ -5,6 +5,7 @@ from pages import BlockCipher_XOR, Hashing_function, XOR_Cipher, Caesar_Cipher, 
 
 LOGGER = get_logger(__name__)
 
+st.set_page_config(page_title="Applied Cryptography", page_icon="♨️")
 
 # Function to execute content of .py files
 def execute_py_file(file_path):
