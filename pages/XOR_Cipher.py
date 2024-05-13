@@ -2,7 +2,17 @@ import streamlit as st
 
 # Define XOR encryption and decryption functions
 def xor_encrypt(plaintext, key):
-    """Encrypts plaintext using XOR cipher with the given key."""
+    """
+    Encrypts plaintext using XOR cipher with the given key.
+    
+    Args:
+        plaintext (bytes): The plaintext to be encrypted.
+        key (bytes): The encryption key.
+        
+    Returns:
+        bytes: The ciphertext resulting from XOR encryption.
+        list: List of tuples representing XOR operations.
+    """
     ciphertext = bytearray()
     xor_operations = []
     for i in range(len(plaintext)):
@@ -12,7 +22,17 @@ def xor_encrypt(plaintext, key):
     return ciphertext, xor_operations
 
 def xor_decrypt(ciphertext, key):
-    """Decrypts ciphertext using XOR cipher with the given key."""
+    """
+    Decrypts ciphertext using XOR cipher with the given key.
+    
+    Args:
+        ciphertext (bytes): The ciphertext to be decrypted.
+        key (bytes): The decryption key.
+        
+    Returns:
+        bytes: The plaintext resulting from XOR decryption.
+        list: List of tuples representing XOR operations.
+    """
     decrypted = bytearray()
     xor_operations = []
     for i in range(len(ciphertext)):
@@ -23,6 +43,15 @@ def xor_decrypt(ciphertext, key):
 
 # Define function to display encryption/decryption results
 def display_results(ciphertext, decrypted, xor_encrypt_operations, xor_decrypt_operations):
+    """
+    Displays the results of XOR encryption and decryption along with XOR operations.
+    
+    Args:
+        ciphertext (bytes): The ciphertext resulting from encryption.
+        decrypted (bytes): The plaintext resulting from decryption.
+        xor_encrypt_operations (list): List of tuples representing XOR operations during encryption.
+        xor_decrypt_operations (list): List of tuples representing XOR operations during decryption.
+    """
     st.subheader("Results")
     col1, col2 = st.columns(2)
     with col1:
@@ -52,7 +81,7 @@ def main():
     st.title("XOR Cipher 🛡️")
     st.markdown("Encrypt and Decrypt using XOR Cipher with a Key")
 
-# Add a button in the sidebar to choose input method
+    # Add a button in the sidebar to choose input method
     st.sidebar.title("📥 Choose Input Option")
     input_method = st.sidebar.radio("", ("📝 Text", "📂 File"))
 
@@ -67,7 +96,7 @@ def main():
         key = st.text_input("Enter Key 🔑:")
         submitted = st.form_submit_button("Encrypt & Decrypt")
 
-# Process submitted form
+    # Process submitted form
     if submitted:
         if not key:
             st.error("Please provide a key.")
