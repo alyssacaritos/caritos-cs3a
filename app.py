@@ -76,9 +76,17 @@ if show_text_only:
         
         The application will provide a user-friendly interface that allows users to encrypt, decrypt, and hash messages/files using different cryptographic algorithms 🤖.
         """)
+
 else:
     # Display buttons for each .py file in the main content area
     selected_page = st.selectbox("Your Preview Page", page_names)
+
+    details = algorithm_details.get(selected_page)
+    if details:
+        st.markdown(f"### {selected_page} Algorithm Details")
+        st.write(f"**Description:** {details['Description']}")
+        st.write(f"**Pseudocode:**\n{details['Pseudocode']}")
+
 
     # Show content of the selected page
     if selected_page:
@@ -88,3 +96,5 @@ else:
             function_to_execute()
         else:
             st.write("This page does not have an executable function.")
+
+    # Display algorithm details if selected 
